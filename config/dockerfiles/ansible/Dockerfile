@@ -15,6 +15,8 @@ RUN dnf install -y ansible \
         fedpkg \
         libselinux-python \
         standard-test-roles \
+        python-boto \
+        python-boto3 \
         rsync && \
     dnf clean all && \
     mkdir -p ${APP_ROOT} && \
