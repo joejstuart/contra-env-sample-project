@@ -280,7 +280,7 @@ parameters:
 - name: LOAD_SEED_JOB
   displayName: Load seed job
   description: Whether to load a dsl seed job
-  value: 'true'
+  value: 'false'
 - name: DSL_JOB_REPO
   displayName: DSL job repo
   description: The repository of dsl jobs
