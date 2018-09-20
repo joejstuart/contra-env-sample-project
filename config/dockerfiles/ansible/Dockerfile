@@ -12,6 +12,7 @@ COPY ansible.cfg /etc/ansible/ansible.cfg
 COPY bin/ ${APP_ROOT}/bin/
 
 RUN dnf install -y ansible \
+        buildah \
         fedpkg \
         libselinux-python \
         standard-test-roles \
