@@ -39,12 +39,13 @@ def sharedLibConfigs = [
                 name: "contra-library",
                 repo: "https://github.com/CentOS-PaaS-SIG/contra-env-sample-project",
                 refs: ["+refs/heads/*:refs/remotes/origin/*  +refs/pull/*:refs/remotes/origin/pr/*"],
-                branch: "master"
+                branch: "master",
         ],
         [
                 name: "contra-lib",
                 repo: "https://github.com/joejstuart/contra-lib",
-                branch: "containerBuild"
+                branch: "containerBuild",
+                implicit: true
         ]
 ]
 
@@ -65,7 +66,7 @@ sharedLibConfigs.each { libConfig ->
         source.setTraits([refspecs])
     }
     LibraryConfiguration lib = new LibraryConfiguration(libName, new SCMSourceRetriever(source))
-    lib.implicit = false
+    lib.implicit = libConfig['implicit'] ?: false
     lib.defaultVersion = libConfig.get('branch') ?: 'master'
     GlobalLibraries.get().getLibraries().add(lib)
 }
