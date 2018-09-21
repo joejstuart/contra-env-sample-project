@@ -35,16 +35,17 @@ instance.save()
 
 logger.info("Configuring Global Pipeline Libraries")
 def sharedLibConfigs = [
-        new Tuple(
-                "contra-library",
-                "https://github.com/CentOS-PaaS-SIG/contra-env-sample-project",
-                ["+refs/heads/*:refs/remotes/origin/*  +refs/pull/*:refs/remotes/origin/pr/*"]
-        ),
-        new Tuple(
-                "contra-lib",
-                "https://github.com/openshift/contra-lib",
-                ["+refs/heads/*:refs/remotes/origin/*  +refs/pull/*:refs/remotes/origin/pr/*"]
-        )
+        [
+                name: "contra-library",
+                repo: "https://github.com/CentOS-PaaS-SIG/contra-env-sample-project",
+                refs: ["+refs/heads/*:refs/remotes/origin/*  +refs/pull/*:refs/remotes/origin/pr/*"],
+                branch: "master"
+        ],
+        [
+                name: "contra-lib",
+                repo: "https://github.com/joejstuart/contra-lib",
+                branch: "containerBuild"
+        ]
 ]
 
 // remove existing libraries to make sure we always use the latest configuration coming from this file
@@ -54,17 +55,17 @@ GlobalLibraries.get().getLibraries().removeAll() { lib ->
 }
 
 sharedLibConfigs.each { libConfig ->
-    String libName = libConfig.get(0)
+    String libName = libConfig.get('name')
     logger.info("Adding Global Pipeline library '${libName}'")
-    String gitUrl = libConfig.get(1)
+    String gitUrl = libConfig.get('repo')
     GitSCMSource source= new GitSCMSource(libName, gitUrl, null, null, null, false)
-    String[] refSpecs = libConfig.get(2)
+    String[] refSpecs = libConfig.get('refs')
     if (refSpecs) {
         RefSpecsSCMSourceTrait refspecs = new RefSpecsSCMSourceTrait(refSpecs)
         source.setTraits([refspecs])
     }
     LibraryConfiguration lib = new LibraryConfiguration(libName, new SCMSourceRetriever(source))
     lib.implicit = false
-    lib.defaultVersion = "master"
+    lib.defaultVersion = libConfig.get('branch') ?: 'master'
     GlobalLibraries.get().getLibraries().add(lib)
 }
