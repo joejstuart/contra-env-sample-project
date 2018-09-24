@@ -1,0 +1,4 @@
+/usr/libexec/bin/assemble
+
+rm -rf /tmp/src
+rm -rf /tmp/scripts
