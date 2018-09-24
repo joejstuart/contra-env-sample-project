@@ -1,1 +1,4 @@
 /usr/libexec/s2i/run
+
+echo "I am here"
+ls -lart
