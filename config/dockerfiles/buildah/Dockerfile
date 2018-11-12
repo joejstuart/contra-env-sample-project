@@ -1,4 +1,4 @@
 FROM fedora:28
 
-RUN dnf install -y buildah
+RUN dnf install -y buildah make
 
