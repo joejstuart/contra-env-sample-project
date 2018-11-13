@@ -1,4 +1,4 @@
 FROM fedora:28
 
-RUN dnf install -y buildah make
+RUN dnf install -y buildah make podman
 
