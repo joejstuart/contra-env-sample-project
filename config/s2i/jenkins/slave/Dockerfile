@@ -4,5 +4,7 @@ RUN yum install -y epel-release
 RUN yum install -y ansible \
         jq \
         ruby
-RUN pip install openshift
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
+    python get-pip.py && \
+    pip install openshift
 
