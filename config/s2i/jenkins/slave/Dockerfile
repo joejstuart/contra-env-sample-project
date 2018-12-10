@@ -6,5 +6,5 @@ RUN yum install -y ansible \
         ruby
 RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && \
     python get-pip.py && \
-    pip install openshift
+    sudo -H pip install openshift
 
