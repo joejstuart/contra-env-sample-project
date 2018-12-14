@@ -2,7 +2,9 @@ import org.centos.contra.jobdsl.PipelineJob
 
 def components = System.getenv('COMPONENT_JOBS')
 
+println "printing components"
 println components
+println "done printing"
 def job = new PipelineJob(this, 'samplePipelineJob')
 
 // uncomment if you have fed msg configured
